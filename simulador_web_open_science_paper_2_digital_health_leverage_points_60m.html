@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Health Design for Systemic Leverage — 60-Month SD Flight Simulator (SIMPAT)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], mono: ['JetBrains Mono', 'ui-monospace', 'monospace'] },
+          colors: {
+            navy: { 50: '#f4f8fc', 100: '#e2ecf7', 800: '#0f2648', 900: '#091830' },
+            tealsm: '#008080', coralsm: '#c02e26', ambersm: '#c47c10', forestsm: '#22863a'
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; background: #f8fafc; color: #0f172a; }
+    input[type="range"] { accent-color: #0f2648; cursor: pointer; }
+  </style>
+</head>
+<body class="antialiased">
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden transition-all duration-300 opacity-0 translate-y-2">
+    <div class="bg-navy-900 text-white text-xs font-medium px-4 py-3 rounded-xl shadow-xl border border-slate-700 flex items-center gap-2">
+      <span class="w-2.5 h-2.5 rounded-full bg-teal-400"></span>
+      <span id="toast-msg">Done</span>
+    </div>
+  </div>
+
+  <header class="sticky top-0 z-40 bg-navy-900/95 backdrop-blur text-white border-b border-slate-800 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500 to-blue-700 flex items-center justify-center font-extrabold text-xs shadow">LP</div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] uppercase tracking-widest font-semibold text-teal-300">Open Science SD Simulator</span>
+            <span class="hidden sm:inline-block px-2 py-0.5 text-[10px] rounded-full bg-slate-800 text-slate-300 border border-slate-700">Simulation Modelling Practice &amp; Theory</span>
+          </div>
+          <h1 class="text-sm sm:text-base font-bold leading-snug">Digital Health Design for Systemic Leverage (60-Month Ecosystem)</h1>
+        </div>
+      </div>
+      <nav class="flex flex-wrap items-center gap-1.5 text-xs font-medium">
+        <a href="#simulator" class="px-2.5 py-1.5 rounded-lg text-slate-200 hover:bg-slate-800 transition">Simulator</a>
+        <a href="#equity" class="px-2.5 py-1.5 rounded-lg text-slate-200 hover:bg-slate-800 transition">Equity &amp; Thresholds</a>
+        <a href="#cite" class="px-2.5 py-1.5 rounded-lg text-slate-200 hover:bg-slate-800 transition">Open Science</a>
+        <button onclick="exportCSV()" class="ml-1 px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-500 text-white font-semibold transition">Export CSV</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="bg-gradient-to-b from-navy-900 via-navy-800 to-slate-900 text-white border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <div class="grid lg:grid-cols-12 gap-6 items-center">
+        <div class="lg:col-span-8 space-y-3">
+          <div class="flex flex-wrap gap-2 text-[11px]">
+            <span class="px-2.5 py-0.5 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 font-semibold">4 Stocks · 8 Flows · 60 Months (&Delta;t = 0.25 m)</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">Bifurcation Threshold: EHR* = 0.72</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-medium">Zero Individual PII (Synthetic Ecosystem)</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold leading-tight">
+            Exploring Meadows' Leverage Points (LP6 &times; LP5 &times; LP2) and the Goodhart Trap in Chronic Care
+          </h2>
+          <p class="text-sm text-slate-300 leading-relaxed max-w-3xl">
+            Test why isolated EHR interoperability (LP6) or isolated value-based reimbursement (LP5) stall below 50%, how crossing the critical bifurcation boundary <strong>EHR* = 0.72</strong> triggers sustained proactive loop inversion (&ge;85%), and how relaxing KPI mental models (LP2) dismantles digital fatigue and metric falsification.
+          </p>
+        </div>
+        <div class="lg:col-span-4 bg-slate-800/75 border border-slate-700 rounded-2xl p-4 text-xs space-y-2">
+          <div class="text-[11px] font-bold uppercase tracking-wider text-teal-300">Inter-Institutional Team (Colombia)</div>
+          <p class="text-slate-100"><strong>Parra Valencia, J. A.</strong><sup>1,*</sup>, Ospina, A.<sup>1</sup>, Ospina, D.<sup>2</sup>, Su&aacute;rez, F.<sup>1</sup>, Solano, A.<sup>3</sup>, Pel&aacute;ez, C.<sup>3</sup>, &amp; Parra, H.<sup>2</sup></p>
+          <p class="text-slate-300 text-[11px]"><sup>1</sup>UNAB (Bucaramanga) &bull; <sup>2</sup>UAM (Manizales) &bull; <sup>3</sup>UAO (Cali)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="simulator" class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+    <div class="flex flex-wrap items-end justify-between gap-3 mb-4">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-wider text-teal-700">Exact OASIS XMILE Browser Replication (Euler / RK4)</span>
+        <h2 class="text-xl sm:text-2xl font-extrabold text-navy-900">1. Chronic Care Leverage Points Policy Sandbox (0–60 Months)</h2>
+      </div>
+      <label class="inline-flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-slate-200 shadow-sm text-xs cursor-pointer">
+        <input type="checkbox" id="chkBase" checked onchange="updateSim()" class="w-4 h-4 accent-coralsm rounded" />
+        <span class="font-medium text-slate-700">Overlay S1 Status Quo</span>
+      </label>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 mb-6">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Published Policy &amp; Paradigm Scenarios:</span>
+        <span id="active-badge" class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-navy-50 text-navy-800 border border-navy-100">Active: S4 Proactive Optimal</span>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+        <button data-preset="s1" onclick="applyPreset('s1')" class="preset-btn px-3 py-2 rounded-xl text-xs border text-left transition"><div class="font-bold">S1 Status Quo</div><div class="text-[10px] opacity-80">EHR 0.0 · Reimb 0.1</div></button>
+        <button data-preset="s2" onclick="applyPreset('s2')" class="preset-btn px-3 py-2 rounded-xl text-xs border text-left transition"><div class="font-bold">S2 Tech Illusion</div><div class="text-[10px] opacity-80">LP6 Only (EHR 0.8)</div></button>
+        <button data-preset="s3" onclick="applyPreset('s3')" class="preset-btn px-3 py-2 rounded-xl text-xs border text-left transition"><div class="font-bold">S3 Fin Illusion</div><div class="text-[10px] opacity-80">LP5 Only (VBC 0.8)</div></button>
+        <button data-preset="s4" onclick="applyPreset('s4')" class="preset-btn px-3 py-2 rounded-xl text-xs border text-left transition"><div class="font-bold">S4 Proactive Opt</div><div class="text-[10px] opacity-80">LP6 + LP5 (0.8 / 0.8)</div></button>
+        <button data-preset="s5" onclick="applyPreset('s5')" class="preset-btn px-3 py-2 rounded-xl text-xs border text-left transition"><div class="font-bold">S5 Paradigm Shift</div><div class="text-[10px] opacity-80">+ LP2 (KPI = 0.2)</div></button>
+        <button data-preset="s6" onclick="applyPreset('s6')" class="preset-btn px-3 py-2 rounded-xl text-xs border text-left transition"><div class="font-bold">S6 Zero-KPI</div><div class="text-[10px] opacity-80">+ LP2 (KPI = 0.0)</div></button>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-6 items-start">
+      <aside class="lg:col-span-4 bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4 lg:sticky lg:top-20">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div>
+            <h3 class="text-sm font-bold text-navy-900">Meadows Leverage Controls</h3>
+            <p class="text-[11px] text-slate-500">LP6, LP5, LP2 &amp; Equity Stratum</p>
+          </div>
+          <button onclick="applyPreset('s4')" class="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-100 hover:bg-slate-200">Reset S4</button>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-teal-50/70 border border-teal-200 space-y-3 text-xs">
+          <div class="text-[11px] font-bold uppercase text-teal-900">Structural Policy Levers</div>
+          <div>
+            <div class="flex justify-between font-semibold"><span>LP6: EHR Interoperability (E<sub>EHR</sub>)</span><span id="v-ehr" class="font-mono text-teal-800">0.80</span></div>
+            <input id="sl-ehr" type="range" min="0" max="1" step="0.02" value="0.80" oninput="onControl()" class="w-full" />
+          </div>
+          <div>
+            <div class="flex justify-between font-semibold"><span>LP5: Value-Based Reimb. (V<sub>reimb</sub>)</span><span id="v-reimb" class="font-mono text-teal-800">0.80</span></div>
+            <input id="sl-reimb" type="range" min="0" max="1" step="0.05" value="0.80" oninput="onControl()" class="w-full" />
+          </div>
+          <div>
+            <div class="flex justify-between font-semibold"><span>LP2: KPI Mental Model (M<sub>KPI</sub>)</span><span id="v-kpi" class="font-mono text-amber-800">1.00</span></div>
+            <input id="sl-kpi" type="range" min="0" max="1" step="0.05" value="1.00" oninput="onControl()" class="w-full" />
+            <div class="flex justify-between text-[10px] text-slate-500 font-mono"><span>0.0 (Outcome)</span><span>0.2 (S5)</span><span>1.0 (Punitive KPI)</span></div>
+          </div>
+        </div>
+
+        <div id="equity" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs">
+          <div class="text-[11px] font-bold uppercase text-slate-700">Health Equity Stratum &amp; Relief Sensitivity</div>
+          <div>
+            <label class="block font-semibold mb-1">Health System Context Stratum</label>
+            <select id="sel-stratum" onchange="onControl()" class="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-2 text-xs">
+              <option value="high">High-Resource Urban Stratum (&phi;=0.18, &eta;=0.85)</option>
+              <option value="ref" selected>Reference Middle-Income / Colombia (&phi;=0.15, &eta;=0.80)</option>
+              <option value="low">Low-Connectivity / Underserved (&phi;=0.11, &eta;=0.65)</option>
+            </select>
+          </div>
+          <div>
+            <div class="flex justify-between font-semibold"><span>Active Fatigue Relief (&rho;<sub>aliv</sub>)</span><span id="v-rho" class="font-mono">0.00</span></div>
+            <input id="sl-rho" type="range" min="0" max="0.30" step="0.05" value="0.00" oninput="onControl()" class="w-full" />
+          </div>
+        </div>
+
+        <div class="flex gap-2">
+          <button onclick="exportCSV()" class="flex-1 py-2.5 rounded-xl bg-navy-800 hover:bg-navy-700 text-white text-xs font-semibold transition">Download CSV</button>
+          <button onclick="copyJSON()" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition">Copy Config</button>
+        </div>
+      </aside>
+
+      <div class="lg:col-span-8 space-y-5">
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <div class="text-[11px] font-semibold text-slate-500">Proactive Share &Phi;<sub>60</sub></div>
+            <div id="k-frac" class="text-2xl font-extrabold text-teal-700 mt-1">86.9%</div>
+            <div id="k-target" class="text-[11px] text-slate-500 font-mono">Target &ge;85%: M34</div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <div class="text-[11px] font-semibold text-slate-500">Proactive Patients (PP<sub>60</sub>)</div>
+            <div id="k-pp" class="text-2xl font-extrabold text-navy-900 mt-1">151.5</div>
+            <div id="k-pr" class="text-[11px] text-slate-500 font-mono">Reactive PR: 22.8</div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <div class="text-[11px] font-semibold text-slate-500">Digital Fatigue (FDA<sub>60</sub>)</div>
+            <div id="k-fda" class="text-2xl font-extrabold text-coralhpt mt-1">0.999</div>
+            <div class="text-[11px] text-slate-500">Scale 0 (none) to 1 (saturated)</div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <div class="text-[11px] font-semibold text-slate-500">Hidden Deterioration (DCO<sub>60</sub>)</div>
+            <div id="k-dco" class="text-2xl font-extrabold text-amber-700 mt-1">0.100</div>
+            <div class="text-[11px] text-slate-500">LP6 explains 95.2% variance</div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <div class="text-[11px] font-semibold text-slate-500">Goodhart Gap (&Delta;<sub>G,60</sub>)</div>
+            <div id="k-good" class="text-2xl font-extrabold text-indigo-700 mt-1">0.100</div>
+            <div class="text-[11px] text-slate-500">Falsified adherence distortion</div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <div class="text-[11px] font-semibold text-slate-500">Total Active Cohort</div>
+            <div id="k-tot" class="text-2xl font-extrabold text-emerald-700 mt-1">174.2</div>
+            <div class="text-[11px] text-slate-500 font-mono">Initial t=0: 110.0</div>
+          </div>
+        </div>
+
+        <div id="diag-box" class="rounded-2xl bg-navy-900 text-slate-100 p-4 border-l-4 border-teal-400 text-xs leading-relaxed"></div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <h4 class="text-xs font-bold text-navy-900 mb-2">(a) Proactive Ecosystem Fraction &Phi;<sub>PP</sub>(t) (%)</h4>
+            <div class="h-56"><canvas id="cFrac"></canvas></div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <h4 class="text-xs font-bold text-navy-900 mb-2">(b) Proactive Ecosystem Patients PP(t)</h4>
+            <div class="h-56"><canvas id="cPP"></canvas></div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <h4 class="text-xs font-bold text-navy-900 mb-2">(c) Accumulated Digital Fatigue FDA(t)</h4>
+            <div class="h-56"><canvas id="cFDA"></canvas></div>
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+            <h4 class="text-xs font-bold text-navy-900 mb-2">(d) Hidden Clinical Deterioration DCO(t)</h4>
+            <div class="h-56"><canvas id="cDCO"></canvas></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section id="cite" class="max-w-7xl mx-auto px-4 sm:px-6 py-6 pb-12">
+    <div class="bg-navy-900 text-white rounded-2xl p-6 grid md:grid-cols-12 gap-6 text-xs">
+      <div class="md:col-span-5 space-y-2.5">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-teal-300">Open Science &amp; Reproducibility</span>
+        <h3 class="text-lg font-extrabold">2. Citation &amp; Model Verification</h3>
+        <p class="text-slate-300 leading-relaxed">
+          Replicates the OASIS XMILE model (<code class="font-mono text-teal-300">sfd dh leverage points 5 julio 2026.stmx</code>) audited via Richardson convergence, Barlas boundary tests, and 11,264 Sobol runs (including second-order interaction indices).
+        </p>
+        <div class="flex gap-2 pt-1">
+          <button onclick="copyBib('bibtex')" class="px-3 py-2 rounded-lg bg-teal-600 hover:bg-teal-500 font-semibold">Copy BibTeX</button>
+          <button onclick="copyBib('apa')" class="px-3 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 font-semibold">Copy APA</button>
+        </div>
+      </div>
+      <div class="md:col-span-7">
+        <pre id="bib-box" class="bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono text-[11px] text-teal-200 overflow-x-auto leading-relaxed">@article{parravalencia2026leverage,
+  author  = {Parra Valencia, Jorge Andrick and Ospina, Ana and Ospina, Diana and Su{\'{a}}rez, Fabi{\'{a}}n and Solano, Andr{\'{e}}s and Pel{\'{a}}ez, Carlos and Parra, Helien},
+  title   = {Digital Health Design for Systemic Leverage: A System Dynamics Simulation and Global Sensitivity Assessment of EHR Interoperability, Value-Based Care, and the Goodhart Trap in Chronic Care Ecosystems},
+  journal = {Simulation Modelling Practice and Theory},
+  year    = {2026},
+  publisher = {Elsevier}
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const STRATA = {
+      high: { phi: 0.18, eta: 0.85, dpro: 0.035, caban: 0.18 },
+      ref:  { phi: 0.15, eta: 0.80, dpro: 0.040, caban: 0.20 },
+      low:  { phi: 0.11, eta: 0.65, dpro: 0.050, caban: 0.25 }
+    };
+    const PRESETS = {
+      s1: { label: 'S1: Status Quo', ehr: 0.0, reimb: 0.1, kpi: 1.0, rho: 0.0, stratum: 'ref' },
+      s2: { label: 'S2: Technological Illusion (LP6)', ehr: 0.8, reimb: 0.1, kpi: 1.0, rho: 0.0, stratum: 'ref' },
+      s3: { label: 'S3: Financial Illusion (LP5)', ehr: 0.0, reimb: 0.8, kpi: 1.0, rho: 0.0, stratum: 'ref' },
+      s4: { label: 'S4: Proactive Optimal (LP6+LP5)', ehr: 0.8, reimb: 0.8, kpi: 1.0, rho: 0.0, stratum: 'ref' },
+      s5: { label: 'S5: Paradigm Shift (+LP2 KPI=0.2)', ehr: 0.8, reimb: 0.8, kpi: 0.2, rho: 0.0, stratum: 'ref' },
+      s6: { label: 'S6: Zero-KPI Paradigm (KPI=0.0)', ehr: 0.8, reimb: 0.8, kpi: 0.0, rho: 0.0, stratum: 'ref' }
+    };
+
+    let cfg = { ...PRESETS.s4 };
+    let activeId = 's4';
+    let s1Run = null, lastRun = null;
+    const charts = {};
+
+    function simEuler(c) {
+      const st = STRATA[c.stratum];
+      const dt = 0.25, steps = 240;
+      let pr = 100.0, pp = 10.0, fda = 0.1, dco = 0.0;
+      const out = { m: [], pr: [], pp: [], frac: [], fda: [], dco: [], good: [] };
+      for (let s = 0; s <= steps; s++) {
+        const fman = 4.0 * c.kpi * (1 - c.ehr);
+        const psoc = 1.0 * c.kpi * (1 - c.ehr);
+        const gfals = fda * psoc * 0.5;
+        const iapp = Math.max(0, Math.min(1, 1 - (fda - gfals)));
+        const sint = c.ehr * st.eta;
+        const rec = dco / 2.0;
+        const rep = Math.max(0.01, 1.0 * (1 + iapp) - rec * 1.5);
+        const frac = (pr + pp > 1e-9) ? (100 * pp / (pr + pp)) : 0;
+        const good = Math.max(0, iapp - (1 - fda));
+
+        if (s % 4 === 0 || s === steps) {
+          out.m.push(Math.round(s * dt));
+          out.pr.push(+pr.toFixed(2));
+          out.pp.push(+pp.toFixed(2));
+          out.frac.push(+frac.toFixed(2));
+          out.fda.push(+fda.toFixed(3));
+          out.dco.push(+dco.toFixed(3));
+          out.good.push(+good.toFixed(3));
+        }
+        if (s === steps) break;
+        const adop = 5.0 * rep;
+        const aban = pr * (fda * st.caban) * (1 - sint * 0.7);
+        const trans = pr * (c.reimb * st.phi) * (1 - fda * Math.pow(1 - c.ehr, 2));
+        const desg = pp * st.dpro * (1 - sint);
+        const gfat = fman * 0.15 * (1 - fda);
+        const afat = c.rho * fda * c.ehr;
+        const det = fda * 0.25 * (1 - c.ehr);
+
+        pr = Math.max(0, pr + dt * (adop - aban - trans));
+        pp = Math.max(0, pp + dt * (trans - desg));
+        fda = Math.max(0, Math.min(1, fda + dt * (gfat - afat)));
+        dco = Math.max(0, dco + dt * (det - rec));
+      }
+      return out;
+    }
+
+    function cOpts(yLbl, yMin, yMax) {
+      return {
+        responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+        plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } } },
+        scales: {
+          x: { title: { display: true, text: 'Months (0–60)', font: { size: 10 } }, ticks: { maxTicksLimit: 7, font: { size: 10 } } },
+          y: { min: yMin, max: yMax, title: { display: true, text: yLbl, font: { size: 10 } }, ticks: { font: { size: 10 } } }
+        }
+      };
+    }
+
+    function initCharts() {
+      charts.frac = new Chart(document.getElementById('cFrac'), { type: 'line', data: { labels: [], datasets: [] }, options: cOpts('Proactive Share (%)', 0, 100) });
+      charts.pp   = new Chart(document.getElementById('cPP'),   { type: 'line', data: { labels: [], datasets: [] }, options: cOpts('Patients (PP)', 0, 420) });
+      charts.fda  = new Chart(document.getElementById('cFDA'),  { type: 'line', data: { labels: [], datasets: [] }, options: cOpts('Digital Fatigue', 0, 1.05) });
+      charts.dco  = new Chart(document.getElementById('cDCO'),  { type: 'line', data: { labels: [], datasets: [] }, options: cOpts('Hidden Det.', 0, 0.55) });
+    }
+
+    function syncUI() {
+      document.getElementById('sl-ehr').value = cfg.ehr;
+      document.getElementById('sl-reimb').value = cfg.reimb;
+      document.getElementById('sl-kpi').value = cfg.kpi;
+      document.getElementById('sl-rho').value = cfg.rho;
+      document.getElementById('sel-stratum').value = cfg.stratum;
+      document.getElementById('v-ehr').textContent = (+cfg.ehr).toFixed(2);
+      document.getElementById('v-reimb').textContent = (+cfg.reimb).toFixed(2);
+      document.getElementById('v-kpi').textContent = (+cfg.kpi).toFixed(2);
+      document.getElementById('v-rho').textContent = (+cfg.rho).toFixed(2);
+      document.getElementById('active-badge').textContent = `Active: ${cfg.label}`;
+      document.querySelectorAll('.preset-btn').forEach(b => {
+        const on = b.getAttribute('data-preset') === activeId;
+        b.className = on
+          ? 'preset-btn px-3 py-2 rounded-xl text-xs border text-left bg-navy-900 text-white border-navy-900 shadow transition'
+          : 'preset-btn px-3 py-2 rounded-xl text-xs border text-left bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100 transition';
+      });
+    }
+
+    function applyPreset(id) { activeId = id; cfg = { ...PRESETS[id] }; syncUI(); updateSim(); }
+
+    function onControl() {
+      activeId = 'custom'; cfg.label = 'Custom Leverage Mix';
+      cfg.ehr = parseFloat(document.getElementById('sl-ehr').value);
+      cfg.reimb = parseFloat(document.getElementById('sl-reimb').value);
+      cfg.kpi = parseFloat(document.getElementById('sl-kpi').value);
+      cfg.rho = parseFloat(document.getElementById('sl-rho').value);
+      cfg.stratum = document.getElementById('sel-stratum').value;
+      syncUI(); updateSim();
+    }
+
+    function updateSim() {
+      const r = simEuler(cfg); lastRun = r;
+      const n = r.m.length - 1;
+      const showBase = document.getElementById('chkBase').checked && activeId !== 's1';
+      const idx85 = r.frac.findIndex(v => v >= 85.0);
+
+      document.getElementById('k-frac').textContent = `${r.frac[n].toFixed(1)}%`;
+      document.getElementById('k-target').textContent = idx85 >= 0 ? `Target >=85%: M${r.m[idx85]}` : 'Target >=85%: Never';
+      document.getElementById('k-pp').textContent = r.pp[n].toFixed(1);
+      document.getElementById('k-pr').textContent = `Reactive PR: ${r.pr[n].toFixed(1)}`;
+      document.getElementById('k-fda').textContent = r.fda[n].toFixed(3);
+      document.getElementById('k-dco').textContent = r.dco[n].toFixed(3);
+      document.getElementById('k-good').textContent = r.good[n].toFixed(3);
+      document.getElementById('k-tot').textContent = (r.pr[n] + r.pp[n]).toFixed(1);
+
+      const diag = document.getElementById('diag-box');
+      if (r.frac[n] >= 85.0 && r.good[n] < 0.05) {
+        diag.innerHTML = `<strong class="text-emerald-300">PARADIGM TRANSFORMATION ACHIEVED (LP6+LP5+LP2):</strong> Proactive share reaches <strong>${r.frac[n].toFixed(1)}%</strong> (${r.pp[n].toFixed(1)} patients) while Goodhart falsification drops to <strong>${r.good[n].toFixed(3)}</strong> and digital fatigue stays restrained at <strong>${r.fda[n].toFixed(3)}</strong>.`;
+      } else if (r.frac[n] >= 85.0) {
+        diag.innerHTML = `<strong class="text-teal-300">PROACTIVE LOOP INVERSION (&ge;85%) ACHIEVED:</strong> Synchronizing EHR (${cfg.ehr.toFixed(2)}) and VBC reimbursement (${cfg.reimb.toFixed(2)}) achieves <strong>${r.frac[n].toFixed(1)}%</strong> proactive retention. Lower LP2 KPI Mental Model toward 0.2 to cut Goodhart distortion (${r.good[n].toFixed(3)}) and expand proactive volume further.`;
+      } else {
+        diag.innerHTML = `<strong class="text-amber-300">BELOW 85% BIFURCATION THRESHOLD:</strong> Ecosystem remains trapped at <strong>${r.frac[n].toFixed(1)}%</strong> proactive share (Hidden Deterioration DCO = <strong>${r.dco[n].toFixed(3)}</strong>). In the selected <em>${cfg.stratum}</em> stratum, both EHR interoperability and value-based reimbursement must be elevated simultaneously.`;
+      }
+
+      charts.frac.data.labels = r.m;
+      charts.frac.data.datasets = [
+        { label: 'Active Proactive Share (%)', data: r.frac, borderColor: '#008080', borderWidth: 2.5, pointRadius: 0 },
+        { label: '85% Target', data: r.m.map(() => 85), borderColor: '#22863a', borderDash: [3, 3], borderWidth: 1.3, pointRadius: 0 },
+        ...(showBase ? [{ label: 'S1 Status Quo', data: s1Run.frac, borderColor: '#c02e26', borderDash: [4, 4], borderWidth: 1.8, pointRadius: 0 }] : [])
+      ];
+      charts.frac.update();
+
+      charts.pp.data.labels = r.m;
+      charts.pp.data.datasets = [
+        { label: 'Active Proactive Patients PP', data: r.pp, borderColor: '#0f2648', borderWidth: 2.5, pointRadius: 0 },
+        ...(showBase ? [{ label: 'S1 Status Quo PP', data: s1Run.pp, borderColor: '#c02e26', borderDash: [4, 4], borderWidth: 1.8, pointRadius: 0 }] : [])
+      ];
+      charts.pp.update();
+
+      charts.fda.data.labels = r.m;
+      charts.fda.data.datasets = [
+        { label: 'Active Digital Fatigue FDA', data: r.fda, borderColor: '#c47c10', borderWidth: 2.5, pointRadius: 0 },
+        ...(showBase ? [{ label: 'S1 Status Quo FDA', data: s1Run.fda, borderColor: '#c02e26', borderDash: [4, 4], borderWidth: 1.8, pointRadius: 0 }] : [])
+      ];
+      charts.fda.update();
+
+      charts.dco.data.labels = r.m;
+      charts.dco.data.datasets = [
+        { label: 'Active Hidden Det. DCO', data: r.dco, borderColor: '#c02e26', borderWidth: 2.5, pointRadius: 0 },
+        ...(showBase ? [{ label: 'S1 Status Quo DCO', data: s1Run.dco, borderColor: '#64748b', borderDash: [4, 4], borderWidth: 1.8, pointRadius: 0 }] : [])
+      ];
+      charts.dco.update();
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast'); document.getElementById('toast-msg').textContent = msg;
+      t.classList.remove('hidden'); requestAnimationFrame(() => t.classList.remove('opacity-0', 'translate-y-2'));
+      clearTimeout(window._tt); window._tt = setTimeout(() => { t.classList.add('opacity-0', 'translate-y-2'); setTimeout(() => t.classList.add('hidden'), 300); }, 2400);
+    }
+    function copyText(txt, msg) {
+      const ta = document.createElement('textarea'); ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); showToast(msg); } catch (e) {} document.body.removeChild(ta);
+    }
+    function copyBib(fmt) {
+      if (fmt === 'bibtex') copyText(document.getElementById('bib-box').textContent, 'BibTeX copied.');
+      else copyText('Parra Valencia, J. A., Ospina, A., Ospina, D., Suárez, F., Solano, A., Peláez, C., & Parra, H. (2026). Digital Health Design for Systemic Leverage. Simulation Modelling Practice and Theory.', 'APA copied.');
+    }
+    function copyJSON() { copyText(JSON.stringify(cfg, null, 2), 'Config JSON copied.'); }
+    function exportCSV() {
+      if (!lastRun) return;
+      const r = lastRun;
+      const rows = ['Months,PR,PP,Proactive_Frac_Pct,FDA,DCO,Goodhart_Gap'];
+      for (let i = 0; i < r.m.length; i++) rows.push([r.m[i], r.pr[i], r.pp[i], r.frac[i], r.fda[i], r.dco[i], r.good[i]].join(','));
+      const blob = new Blob([rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob); const a = document.createElement('a');
+      a.href = url; a.download = `dh_leverage_${activeId}_60m.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+      showToast('CSV exported (60 months).');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      s1Run = simEuler(PRESETS.s1);
+      initCharts();
+      applyPreset('s4');
+    });
+  </script>
+</body>
+</html>
